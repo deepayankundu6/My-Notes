@@ -14,7 +14,7 @@ function Search() {
 }
 
 const searchStyle = {
-    marginLeft: "8.5%",
+    marginLeft: "10%",
 }
 
 const searchIcon = {

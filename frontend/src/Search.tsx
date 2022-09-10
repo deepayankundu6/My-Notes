@@ -14,16 +14,18 @@ function Search() {
 }
 
 const searchStyle = {
-    marginLeft: "10%",
+    // marginLeft: "10%",
 }
 
 const searchIcon = {
-    marginTop: "2%",
+    marginTop: "1.2%",
     marginRight: "0.5%",
+    height: 40
 }
 
 const searchField = {
-    width: "97%", height: 40
+    width: "97%",
+    height: 40
 }
 
 

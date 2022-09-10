@@ -7,18 +7,24 @@ function App() {
   return (
     <Fragment>
       <Grid2 container spacing={1}>
+        <Grid2 xs={1}>
+        </Grid2>
         <Grid2 xs={10}>
           <div style={notesStyle} className="md-10 sd-10"> Notes </div>
         </Grid2>
 
-        <Grid2 xs={2}>
+        <Grid2 xs={1}>
           <AddIcon style={AddStyle} className="md-2 sd-2" />
         </Grid2>
 
       </Grid2>
       <Grid2 container spacing={1}>
+        <Grid2 xs={1}>
+        </Grid2>
         <Grid2 xs={10}>
           <Search />
+        </Grid2>
+        <Grid2 xs={1}>
         </Grid2>
       </Grid2>
     </Fragment>
@@ -27,7 +33,7 @@ function App() {
 
 const notesStyle = {
   fontWeight: "bold",
-  marginLeft: "10%",
+  // marginLeft: "10%",
   marginTop: "2%",
   fontSize: "37px"
 }

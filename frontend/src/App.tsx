@@ -2,8 +2,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fragment } from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import Search from './Search';
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
   return (
     <Fragment>
       <Grid2 container spacing={1}>
@@ -14,7 +16,7 @@ function App() {
         </Grid2>
 
         <Grid2 xs={1}>
-          <AddIcon style={AddStyle} className="md-2 sd-2" />
+          <AddIcon style={AddStyle} className="md-2 sd-2" onClick={() => navigate('add')} />
         </Grid2>
 
       </Grid2>
@@ -31,10 +33,16 @@ function App() {
   );
 }
 
+// function handleAddClick(e: any) {
+//   e.preventDefault();
+//   this.navigate('home');
+//   e.stopPropagation();
+// }
+
 const notesStyle = {
   fontWeight: "bold",
   // marginLeft: "10%",
-  marginTop: "2%",
+  marginTop: "0.5%",
   fontSize: "37px"
 }
 

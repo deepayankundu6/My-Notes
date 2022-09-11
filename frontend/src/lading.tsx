@@ -1,12 +1,16 @@
 import './App.css';
-import { Fragment } from 'react';
 import App from './App';
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import AddNotes from './AddNotes';
 
 function Landing() {
     return (
-        <Fragment>
-            <App />
-        </Fragment>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<App />}> </Route>
+                <Route path="/add" element={<AddNotes />}> </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

@@ -1,6 +1,6 @@
 import './App.css';
 import App from './App';
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddNotes from './AddNotes';
 
 function Landing() {

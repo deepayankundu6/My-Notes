@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import DoneIcon from '@mui/icons-material/Done';
 import { useNavigate } from "react-router-dom";
@@ -7,9 +7,18 @@ import { TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { INotes } from './interfaces';
+import * as APIMethods from './api';
 
 function AddDialogue() {
     const navigate = useNavigate();
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [tags, setTags] = useState('');
+    const [dueDate, setDueDate] = useState(new Date().toString());
+
     return (
         <Fragment>
             <Grid2 container spacing={1}>
@@ -21,7 +30,7 @@ function AddDialogue() {
                 </Grid2>
 
                 <Grid2 xs={1}>
-                    <DoneIcon style={DoneStyle} className="md-2 sd-2" onClick={() => navigate("/")} />
+                    <DoneIcon style={DoneStyle} className="md-2 sd-2" onClick={() => { saveNotes() }} />
                 </Grid2>
 
             </Grid2>
@@ -31,11 +40,11 @@ function AddDialogue() {
                 </Grid2>
                 <Grid2 xs={10}>
                     <form className="mui-Form" onSubmit={(e) => { handelSubmit(e) }}>
-                        <TextField style={descriptionStyle} id="standard-basic" label="Title" variant="standard" /><br />
-                        <TextField multiline style={descriptionStyle} id="standard-basic" label="Description" variant="standard" /><br />
-                        <TextField style={descriptionStyle} variant="standard" label="Tags" /> <br /> <br /> <br />
+                        <TextField style={descriptionStyle} id="Notes-Title" label="Title" variant="standard" onChange={(e: any) => setTitle(e.target.value)} /><br />
+                        <TextField multiline style={descriptionStyle} id="Notes-Description" label="Description" variant="standard" onChange={(e: any) => setDescription(e.target.value)} /><br />
+                        <TextField style={descriptionStyle} placeholder="Add tags separated by ;" id="Notes-Tags" variant="standard" label="Tags" onChange={(e: any) => setTags(e.target.value)} /> <br /> <br /> <br />
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
-                            <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={new Date()} onChange={(newValue) => { }} />
+                            <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={dueDate} onChange={(e: any) => { setDueDate(e.$d.toString()) }} />
                         </LocalizationProvider>
                     </form>
                 </Grid2>
@@ -44,12 +53,47 @@ function AddDialogue() {
                 </Grid2>
 
             </Grid2>
+            <ToastContainer />
         </Fragment>
     );
 
     function handelSubmit(e: any) {
-        e.preventDefault()
+        e.preventDefault();
+        saveNotes();
     }
+
+    function saveNotes() {
+        let payload: INotes;
+        if (title && description && tags && dueDate) {
+            payload = {
+                Title: title,
+                Description: description,
+                Tags: getTags(tags),
+                DueDate: dueDate,
+                SavedDate: new Date().toString()
+            }
+            APIMethods.postData('/notes', payload).then((data) => {
+                console.log("Data added succesfully");
+                toast.success('Note saved successfully', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }).catch(err => {
+                console.log("Some error occured while saving the notes: ", err);
+                toast.error('Some error occured!!!', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            })
+
+        } else {
+            toast.warning('Please add all the fields!!!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+
+    }
+}
+function getTags(data: string) {
+    return data.split(";");
 }
 
 const notesStyle = {

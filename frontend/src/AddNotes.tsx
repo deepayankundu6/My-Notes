@@ -77,6 +77,7 @@ function AddDialogue() {
                 toast.success('Note saved successfully', {
                     position: toast.POSITION.TOP_RIGHT
                 });
+                // navigate("/");
             }).catch(err => {
                 console.log("Some error occured while saving the notes: ", err);
                 toast.error('Some error occured!!!', {

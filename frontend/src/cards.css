@@ -1,0 +1,16 @@
+.rowC {
+    display: inline-block;
+    vertical-align: text-top;
+    margin: 0 auto;
+    border: 2px solid lightgray;
+    border-radius: 2.5%;
+    margin: 1%;
+    max-width: 25%;
+    min-width: 25%;
+    max-height: fit-content;
+    background-color: lightyellow
+}
+
+.cards {
+    margin-left: 15%;
+}

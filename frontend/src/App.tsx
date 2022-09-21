@@ -12,12 +12,11 @@ function App() {
   const notes: INotes[] | [] = []
   const navigate = useNavigate();
   const [Notes, setNotes] = useState(notes);
+  const [Flag, setFlag] = useState(false);
 
   useEffect(() => {
-    GetNotes().then((data) => {
-      if (data) setNotes(data);
-    })
-  }, [])
+    GetNotes();
+  }, [Flag])
 
   return (
     <Fragment>
@@ -52,27 +51,20 @@ function App() {
     try {
       let response = await (await APIMethods.getData("/notes"));
       if (response.data) {
-        return response.data;
+        setNotes(response.data);
+        setFlag(true);
       } else {
         console.log("No saved notes found");
-        return [];
+        // return [];
       }
     } catch (error) {
       console.error("Some error occured: ", error);
       toast.error('Some error occured while fetching the saved notes!!!!!', {
         position: toast.POSITION.TOP_RIGHT
       });
-      return [];
+      // return [];
     }
-
   }
-
-  // function handleAddClick(e: any) {
-  //   e.preventDefault();
-  //   this.navigate('home');
-  //   e.stopPropagation();
-  // }
-
 }
 
 const notesStyle = {

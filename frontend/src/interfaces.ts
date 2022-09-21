@@ -3,7 +3,8 @@ interface INotes {
     Description: string
     Tags: string[]
     DueDate: string
-    SavedDate: string
+    SavedDate: string,
+    id?: string
 }
 
 export { INotes }

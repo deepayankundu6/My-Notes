@@ -17,7 +17,7 @@ function AddDialogue() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [tags, setTags] = useState('');
-    const [dueDate, setDueDate] = useState(new Date().toString());
+    const [dueDate, setDueDate] = useState(new Date());
 
     return (
         <Fragment>
@@ -40,9 +40,9 @@ function AddDialogue() {
                 </Grid2>
                 <Grid2 xs={10}>
                     <form className="mui-Form" onSubmit={(e) => { handelSubmit(e) }}>
-                        <TextField style={descriptionStyle} id="Notes-Title" label="Title" variant="standard" onChange={(e: any) => setTitle(e.target.value)} /><br />
-                        <TextField multiline style={descriptionStyle} id="Notes-Description" label="Description" variant="standard" onChange={(e: any) => setDescription(e.target.value)} /><br />
-                        <TextField style={descriptionStyle} placeholder="Add tags separated by ;" id="Notes-Tags" variant="standard" label="Tags" onChange={(e: any) => setTags(e.target.value)} /> <br /> <br /> <br />
+                        <TextField style={descriptionStyle} id="Notes-Title" label="Title" variant="standard" onChange={(e: any) => setTitle(e.target.value)} value={title} /><br />
+                        <TextField multiline style={descriptionStyle} id="Notes-Description" label="Description" variant="standard" onChange={(e: any) => setDescription(e.target.value)} value={description} /><br />
+                        <TextField style={descriptionStyle} placeholder="Add tags separated by ;" id="Notes-Tags" variant="standard" label="Tags" onChange={(e: any) => setTags(e.target.value)} value={tags} /> <br /> <br /> <br />
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
                             <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={dueDate} onChange={(e: any) => { setDueDate(e.$d.toString()) }} />
                         </LocalizationProvider>
@@ -69,7 +69,7 @@ function AddDialogue() {
                 Title: title,
                 Description: description,
                 Tags: getTags(tags),
-                DueDate: dueDate,
+                DueDate: dueDate.toString(),
                 SavedDate: new Date().toString()
             }
             APIMethods.postData('/notes', payload).then((data) => {
@@ -77,6 +77,7 @@ function AddDialogue() {
                 toast.success('Note saved successfully', {
                     position: toast.POSITION.TOP_RIGHT
                 });
+                ResetForm();
                 // navigate("/");
             }).catch(err => {
                 console.log("Some error occured while saving the notes: ", err);
@@ -89,6 +90,12 @@ function AddDialogue() {
             toast.warning('Please add all the fields!!!', {
                 position: toast.POSITION.TOP_RIGHT
             });
+        }
+        function ResetForm() {
+            setTitle("");
+            setDescription("");
+            setDueDate(new Date());
+            setTags("");
         }
 
     }

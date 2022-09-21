@@ -14,3 +14,14 @@
 .cards {
     margin-left: 15%;
 }
+
+.chips {
+    margin: 1%;
+    max-width: fit-content;
+    min-width: 0%;
+    max-height: 0.1%;
+}
+
+.chips:hover {
+    background-color: rgba(255, 255, 255, 85%)
+}

@@ -1,7 +1,7 @@
 
 // import { Fragment } from 'react';
 import { INotes } from './interfaces';
-import { Button, CardActions, CardContent, Typography } from '@mui/material';
+import { Button, CardActions, CardContent, Chip, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Fragment } from 'react';
 import './cards.css'
@@ -19,9 +19,9 @@ function CardsNotes(props: { notes: INotes[] | [] }) {
                         {note.Description}
                     </Typography>
                     <Typography variant="body2">
-                        Tags:
+                        <b>Tags:</b>
                         <>{note.Tags.map((tag) => {
-                            return <Fragment key={tag}>{tag + " "}</Fragment>
+                            return <Chip label={tag} variant="outlined" key={tag} className='chips' /> //<Fragment key={tag}>{tag + " "}</Fragment>
                         })}</>
                     </Typography>
                 </CardContent>

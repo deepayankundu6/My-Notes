@@ -5,10 +5,13 @@ import Search from './Search';
 import { useNavigate } from "react-router-dom";
 import * as APIMethods from './api';
 import { ToastContainer, toast } from 'react-toastify';
+import CardsNotes from './CardsNotes';
+import { INotes } from './interfaces';
 
 function App() {
+  const notes: INotes[] | [] = []
   const navigate = useNavigate();
-  const [Notes, setNotes] = useState([]);
+  const [Notes, setNotes] = useState(notes);
 
   useEffect(() => {
     GetNotes().then((data) => {
@@ -39,8 +42,7 @@ function App() {
         <Grid2 xs={1}>
         </Grid2>
       </Grid2>
-
-      {/* // Notes display logic */}
+      <CardsNotes notes={Notes} />
       <ToastContainer />
     </Fragment>
   );

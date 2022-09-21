@@ -1,11 +1,21 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import Search from './Search';
 import { useNavigate } from "react-router-dom";
+import * as APIMethods from './api';
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   const navigate = useNavigate();
+  const [Notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    GetNotes().then((data) => {
+      if (data) setNotes(data);
+    })
+  }, [])
+
   return (
     <Fragment>
       <Grid2 container spacing={1}>
@@ -29,15 +39,39 @@ function App() {
         <Grid2 xs={1}>
         </Grid2>
       </Grid2>
+
+      {/* // Notes display logic */}
+      <ToastContainer />
     </Fragment>
   );
-}
 
-// function handleAddClick(e: any) {
-//   e.preventDefault();
-//   this.navigate('home');
-//   e.stopPropagation();
-// }
+  async function GetNotes() {
+
+    try {
+      let response = await (await APIMethods.getData("/notes"));
+      if (response.data) {
+        return response.data;
+      } else {
+        console.log("No saved notes found");
+        return [];
+      }
+    } catch (error) {
+      console.error("Some error occured: ", error);
+      toast.error('Some error occured while fetching the saved notes!!!!!', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return [];
+    }
+
+  }
+
+  // function handleAddClick(e: any) {
+  //   e.preventDefault();
+  //   this.navigate('home');
+  //   e.stopPropagation();
+  // }
+
+}
 
 const notesStyle = {
   fontWeight: "bold",

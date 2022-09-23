@@ -5,12 +5,13 @@ import { CardActions, CardContent, Chip, Typography } from '@mui/material';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import './cards.css'
 import Grid2 from '@mui/material/Unstable_Grid2';
+import * as Axios from './api';
+import { ToastContainer, toast } from 'react-toastify';
 
-function CardsNotes(props: { notes: INotes[] | [] }) {
-
+function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
     return <div className='cards'>
         {props.notes.map((note: INotes) => {
-            return <span className='rowC' key={note.id}>
+            return <span className={new Date(note.DueDate) > new Date() ? "rowC" : "rowCoverdue"} key={note.id}>
                 <CardContent >
                     <Typography variant="h5" component="div">
                         <Grid2 container spacing={1}>
@@ -19,7 +20,7 @@ function CardsNotes(props: { notes: INotes[] | [] }) {
                             </Grid2>
 
                             <Grid2 xs={1}>
-                                <DeleteSweepIcon fontSize="small" data-testid="DeleteIcon" className='deleteIcon' />
+                                <DeleteSweepIcon fontSize="small" data-testid="DeleteIcon" className='deleteIcon' onClick={() => deleteNote(note)} />
                             </Grid2>
                         </Grid2>
                     </Typography>
@@ -36,11 +37,24 @@ function CardsNotes(props: { notes: INotes[] | [] }) {
                 <CardActions>
                     {/* <svg fontSize="small" data-testid="DeleteIcon" style={deleteincon} /> */}
                 </CardActions>
-
+                <ToastContainer />
             </span>
         })
         }
     </div>
+
+    async function deleteNote(item: INotes) {
+        try {
+            let response = await Axios.deletetData(`/notes/${item.id}`);
+            props.refresh();
+        } catch (err) {
+            console.error(`Some error occured while deleting ${item.id}, error: `, err);
+            toast.error('Some error occured!!!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+    }
 }
+
 
 export default CardsNotes;

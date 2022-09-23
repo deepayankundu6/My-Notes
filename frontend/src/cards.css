@@ -11,9 +11,36 @@
     background-color: lightyellow
 }
 
+.rowC:hover {
+    /* margin-left: 15%; */
+    border: 2px solid black;
+    background-color: lightyellow;
+}
+
+.rowCoverdue {
+    display: inline-block;
+    vertical-align: text-top;
+    margin: 0 auto;
+    border: 2px solid red;
+    border-radius: 2.5%;
+    margin: 1%;
+    max-width: 25%;
+    min-width: 25%;
+    max-height: fit-content;
+    background-color: lightyellow
+}
+
+.rowCoverdue:hover {
+    /* margin-left: 15%; */
+    border: 2px solid black;
+    background-color: lightyellow;
+}
+
 .cards {
     margin-left: 15%;
 }
+
+
 
 .deleteIcon {
     display: inline-block;
@@ -23,11 +50,7 @@
     white-space: nowrap;
 }
 
-.rowC:hover {
-    /* margin-left: 15%; */
-    border: 2px solid black;
-    background-color: lightyellow;
-}
+
 
 .chips {
     margin: 1%;

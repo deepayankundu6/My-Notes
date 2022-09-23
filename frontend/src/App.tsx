@@ -41,7 +41,7 @@ function App() {
         <Grid2 xs={1}>
         </Grid2>
       </Grid2>
-      <CardsNotes notes={Notes} />
+      <CardsNotes notes={Notes} refresh={GetNotes} />
       <ToastContainer />
     </Fragment>
   );
@@ -52,7 +52,7 @@ function App() {
       let response = await (await APIMethods.getData("/notes"));
       if (response.data) {
         setNotes(response.data);
-        setFlag(true);
+        setFlag(!Flag);
       } else {
         console.log("No saved notes found");
         // return [];

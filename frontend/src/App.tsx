@@ -36,7 +36,7 @@ function App() {
         <Grid2 xs={1}>
         </Grid2>
         <Grid2 xs={10}>
-          <Search />
+          <Search searchFunction={searchNote} />
         </Grid2>
         <Grid2 xs={1}>
         </Grid2>
@@ -46,13 +46,21 @@ function App() {
     </Fragment>
   );
 
+
+  function searchNote(key: string) {
+    console.log("Search Key: ", key);
+    let FilteredNotes = Notes.filter(ell => ell.Title.includes(key) || ell.Description.includes(key) || ell.Tags.includes(key));
+    console.log(FilteredNotes)
+    setNotes(FilteredNotes);
+  }
+
   async function GetNotes() {
 
     try {
-      let response = await (await APIMethods.getData("/notes"));
+      let response = await APIMethods.getData("/notes");
       if (response.data) {
         setNotes(response.data);
-        setFlag(!Flag);
+        setFlag(false);
       } else {
         console.log("No saved notes found");
         // return [];

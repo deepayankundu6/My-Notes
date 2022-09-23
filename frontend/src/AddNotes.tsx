@@ -129,14 +129,16 @@ const ClearStyle = {
     fontWeight: "bold",
     marginTop: "15%",
     marginLeft: "40%",
-    fontSize: "40px"
+    fontSize: "40px",
+    cursor: "pointer"
 }
 
 const DoneStyle = {
     fontWeight: "bold",
     // marginLeft: "10%",
     marginTop: "15%",
-    fontSize: "40px"
+    fontSize: "40px",
+    cursor: "pointer"
 }
 
 export default AddDialogue;

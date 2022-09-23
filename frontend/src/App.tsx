@@ -78,7 +78,8 @@ const AddStyle = {
   fontWeight: "bold",
   // marginLeft: "10%",
   marginTop: "15%",
-  fontSize: "40px"
+  fontSize: "40px",
+  cursor: "pointer"
 }
 
 export default App;

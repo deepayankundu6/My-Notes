@@ -1,19 +1,27 @@
 
 // import { Fragment } from 'react';
 import { INotes } from './interfaces';
-import { Button, CardActions, CardContent, Chip, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Fragment } from 'react';
+import { CardActions, CardContent, Chip, Typography } from '@mui/material';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import './cards.css'
+import Grid2 from '@mui/material/Unstable_Grid2';
 
 function CardsNotes(props: { notes: INotes[] | [] }) {
 
     return <div className='cards'>
         {props.notes.map((note: INotes) => {
-            return <div className='rowC' key={note.id}>
+            return <span className='rowC' key={note.id}>
                 <CardContent >
                     <Typography variant="h5" component="div">
-                        {note.Title}
+                        <Grid2 container spacing={1}>
+                            <Grid2 xs={11}>
+                                {note.Title}
+                            </Grid2>
+
+                            <Grid2 xs={1}>
+                                <DeleteSweepIcon fontSize="small" data-testid="DeleteIcon" className='deleteIcon' />
+                            </Grid2>
+                        </Grid2>
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         {note.Description}
@@ -29,7 +37,7 @@ function CardsNotes(props: { notes: INotes[] | [] }) {
                     {/* <svg fontSize="small" data-testid="DeleteIcon" style={deleteincon} /> */}
                 </CardActions>
 
-            </div>
+            </span>
         })
         }
     </div>

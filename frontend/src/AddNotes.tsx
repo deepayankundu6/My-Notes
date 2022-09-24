@@ -101,7 +101,9 @@ function AddDialogue() {
     }
 }
 function getTags(data: string) {
-    return data.split(";");
+    let tags = data.split(";");
+    tags = tags.filter((el: string) => el)
+    return tags;
 }
 
 const notesStyle = {

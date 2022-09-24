@@ -49,9 +49,10 @@ function App() {
 
   function searchNote(key: string) {
     console.log("Search Key: ", key);
-    let FilteredNotes = Notes.filter(ell => ell.Title.includes(key) || ell.Description.includes(key) || ell.Tags.includes(key));
-    console.log(FilteredNotes)
-    setNotes(FilteredNotes);
+    let result = Notes.filter(ell => ell.Title.includes(key) || ell.Description.includes(key) || ell.Tags.includes(key));
+    console.log(result)
+    setNotes(result);
+
   }
 
   async function GetNotes() {

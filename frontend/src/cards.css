@@ -5,9 +5,10 @@
     border: 2px solid lightgray;
     border-radius: 2.5%;
     margin: 1%;
-    max-width: max-content;
+    max-width: 28%;
     min-width: 28%;
-    /* max-height: fit-content; */
+    max-height: 500%;
+    min-height: 200%;
     background-color: lightyellow
 }
 
@@ -24,9 +25,10 @@
     border: 2px solid red;
     border-radius: 2.5%;
     margin: 1%;
-    max-width: max-content;
+    max-width: 28%;
     min-width: 28%;
-    /* max-height: fit-content; */
+    max-height: 500%;
+    min-height: 200%;
     background-color: lightyellow
 }
 
@@ -38,8 +40,8 @@
 
 .cards {
     margin-left: 10%;
-    max-height: max-content;
-    min-height: min-content;
+    max-height: fit-content;
+    min-height: 200%;
 }
 
 .deleteIcon {

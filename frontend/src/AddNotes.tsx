@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { INotes } from './interfaces';
 import * as APIMethods from './api';
+import { v4 } from 'uuid'
 
 function AddDialogue() {
     const navigate = useNavigate();
@@ -70,7 +71,8 @@ function AddDialogue() {
                 Description: description,
                 Tags: getTags(tags),
                 DueDate: dueDate.toString(),
-                SavedDate: new Date().toString()
+                SavedDate: new Date().toString(),
+                id: v4()
             }
             APIMethods.postData('/notes', payload).then((data) => {
                 console.log("Data added succesfully");

@@ -1,10 +1,10 @@
-const debouncedFunction = (func: any) => {
-    let dfunc;
-    if (dfunc) clearTimeout(dfunc);
-    return dfunc = function (args: any) {
-        return setTimeout(() => {
+const debouncedFunction = (func: any, delay = 1000) => {
+    let timeout: any;
+    return function (...args: any) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
             func(args)
-        }, 2500);
+        }, delay);
     }
 }
 

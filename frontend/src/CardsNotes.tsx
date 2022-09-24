@@ -41,7 +41,7 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
             </span>
         })
         }
-    </div>
+    </div >
 
     async function deleteNote(item: INotes) {
         try {

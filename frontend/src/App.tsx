@@ -48,7 +48,7 @@ function App() {
 
 
   function searchNote(key: string) {
-    console.log("Search Key: ", key);
+    // console.log("Search Key: ", key);
     let result = Notes.filter(ell => ell.Title.includes(key) || ell.Description.includes(key) || ell.Tags.includes(key));
     console.log(result)
     setNotes(result);

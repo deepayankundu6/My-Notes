@@ -8,7 +8,7 @@
     max-width: 28%;
     min-width: 28%;
     max-height: 500%;
-    min-height: 200%;
+    min-height: 500%;
     background-color: lightyellow
 }
 
@@ -16,6 +16,7 @@
     /* margin-left: 15%; */
     border: 2px solid black;
     background-color: lightyellow;
+    box-shadow: 2px 2px 2px 2px lightblue;
 }
 
 .rowCoverdue {
@@ -28,7 +29,7 @@
     max-width: 28%;
     min-width: 28%;
     max-height: 500%;
-    min-height: 200%;
+    min-height: 500%;
     background-color: lightyellow
 }
 
@@ -36,6 +37,7 @@
     /* margin-left: 15%; */
     border: 2px solid black;
     background-color: lightyellow;
+    box-shadow: 2px 2px 2px 2px lightblue;
 }
 
 .cards {

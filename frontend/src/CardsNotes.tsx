@@ -13,7 +13,7 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
     const navigate = useNavigate();
     return <div className='cards'>
         {props.notes.map((note: INotes) => {
-            return <span className={new Date(note.DueDate) > new Date() ? "rowC" : "rowCoverdue"} key={note.id}>
+            return <span className={"rowC"} key={note.id}>
                 <CardContent >
                     <Typography variant="h5" component="span">
                         <Grid2 container spacing={1}>
@@ -36,7 +36,7 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
                         })}</>
                     </Typography>
                     <Typography variant="body2" component={'span'}>
-                        <br />   <b>Due Date:</b>  {new Date(note.DueDate).toDateString() + ' ' + new Date(note.DueDate).toLocaleTimeString()}
+                        <br />   <b >Due Date:</b> <span className={new Date(note.DueDate) > new Date() ? "duedate" : "overduedate"}> {new Date(note.DueDate).toDateString() + ' ' + new Date(note.DueDate).toLocaleTimeString()}</span>
                     </Typography>
                 </CardContent>
                 <CardActions>

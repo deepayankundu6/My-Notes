@@ -16,28 +16,7 @@
     /* margin-left: 15%; */
     border: 2px solid black;
     background-color: lightyellow;
-    box-shadow: 2px 2px 2px 2px lightblue;
-}
-
-.rowCoverdue {
-    display: inline-block;
-    vertical-align: text-top;
-    margin: 0 auto;
-    border: 2px solid red;
-    border-radius: 2.5%;
-    margin: 1%;
-    max-width: 28%;
-    min-width: 28%;
-    max-height: 500%;
-    min-height: 500%;
-    background-color: lightyellow
-}
-
-.rowCoverdue:hover {
-    /* margin-left: 15%; */
-    border: 2px solid black;
-    background-color: lightyellow;
-    box-shadow: 2px 2px 2px 2px lightblue;
+    box-shadow: 4px 4px 4px 4px lightblue;
 }
 
 .cards {
@@ -54,7 +33,13 @@
     white-space: nowrap;
 }
 
+.duedate {
+    color: black;
+}
 
+.overduedate {
+    color: red;
+}
 
 .chips {
     margin: 1%;

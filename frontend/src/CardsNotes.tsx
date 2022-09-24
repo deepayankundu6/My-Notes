@@ -7,15 +7,17 @@ import './cards.css'
 import Grid2 from '@mui/material/Unstable_Grid2';
 import * as Axios from './api';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
+    const navigate = useNavigate();
     return <div className='cards'>
         {props.notes.map((note: INotes) => {
             return <span className={new Date(note.DueDate) > new Date() ? "rowC" : "rowCoverdue"} key={note.id}>
                 <CardContent >
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="span">
                         <Grid2 container spacing={1}>
-                            <Grid2 xs={11}>
+                            <Grid2 xs={11} onClick={() => navigate('edit/' + note.id)} style={titleStyle}>
                                 {note.Title}
                             </Grid2>
 
@@ -24,14 +26,17 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
                             </Grid2>
                         </Grid2>
                     </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary" component={'span'}>
                         {note.Description}
                     </Typography>
-                    <Typography variant="body2">
-                        <b>Tags:</b>
+                    <Typography variant="body2" component={'span'}>
+                        <br /><b>Tags:</b>
                         <>{note.Tags.map((tag) => {
                             return <Chip label={tag} variant="outlined" key={tag} className='chips' /> //<Fragment key={tag}>{tag + " "}</Fragment>
                         })}</>
+                    </Typography>
+                    <Typography variant="body2" component={'span'}>
+                        <br />   <b>Due Date:</b>  {new Date(note.DueDate).toDateString() + ' ' + new Date(note.DueDate).toLocaleTimeString()}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -54,7 +59,11 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
             });
         }
     }
+
 }
 
+const titleStyle = {
+    cursor: "pointer"
+}
 
 export default CardsNotes;

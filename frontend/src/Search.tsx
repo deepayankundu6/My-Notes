@@ -5,7 +5,7 @@ import { debouncedFunction } from './debounce';
 
 function Search(props: { searchFunction: any }) {
 
-    const [searchTerms, setSearchTerms] = useState('')
+    // const [searchTerms, setSearchTerms] = useState('')
 
     const memofunction = useMemo(() => { return debouncedFunction(props.searchFunction) }, [])
     return (
@@ -18,8 +18,8 @@ function Search(props: { searchFunction: any }) {
     );
 
     function handleSearch(e: any) {
-        setSearchTerms(e.target.value);
-        memofunction(searchTerms)
+        // setSearchTerms(e.target.value);
+        memofunction(e.target.value)
     }
 }
 

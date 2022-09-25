@@ -15,7 +15,6 @@ export class MongoDbService {
         let data = {}
         try {
             await client.connect();
-            console.log('Connected successfully to mongoDB server');
             data = await client.db(this.DatabaseName).collection(this.CollectionName).insertOne(item);
         } catch (err) { console.error(err); } // catch any mongo error here
         finally { client.close(); } // make sure to close your connection after

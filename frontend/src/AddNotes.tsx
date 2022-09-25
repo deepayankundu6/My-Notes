@@ -71,15 +71,19 @@ function AddDialogue() {
                 Description: description,
                 Tags: getTags(tags),
                 DueDate: dueDate.toString(),
-                SavedDate: new Date().toString(),
-                id: v4()
+                SavedDate: new Date().toString()
             }
-            APIMethods.postData('/notes', payload).then((data) => {
-                console.log("Data added succesfully");
-                toast.success('Note saved successfully', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-                ResetForm();
+            APIMethods.postData('/app/notes/save', payload).then(({ data }) => {
+                if (data.acknowledged) {
+                    toast.success('Note saved successfully', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    ResetForm();
+                } else {
+                    toast.error('dSome error occured!!!', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
                 // navigate("/");
             }).catch(err => {
                 console.log("Some error occured while saving the notes: ", err);

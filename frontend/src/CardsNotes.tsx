@@ -13,11 +13,11 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
     const navigate = useNavigate();
     return <div className='cards'>
         {props.notes.map((note: INotes) => {
-            return <span className={"rowC"} key={note.id}>
+            return <span className={"rowC"} key={note._id}>
                 <CardContent >
                     <Typography variant="h5" component="span">
                         <Grid2 container spacing={1}>
-                            <Grid2 xs={11} onClick={() => navigate('edit/' + note.id)} style={titleStyle}>
+                            <Grid2 xs={11} onClick={() => navigate('edit/' + note._id)} style={titleStyle}>
                                 {note.Title}
                             </Grid2>
 
@@ -50,10 +50,10 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
 
     async function deleteNote(item: INotes) {
         try {
-            let response = await Axios.deletetData(`/notes/${item.id}`);
+            let response = await Axios.deletetData(`/app/note/delete/${item._id}`);
             props.refresh();
         } catch (err) {
-            console.error(`Some error occured while deleting ${item.id}, error: `, err);
+            console.error(`Some error occured while deleting ${item._id}, error: `, err);
             toast.error('Some error occured!!!', {
                 position: toast.POSITION.TOP_RIGHT
             });

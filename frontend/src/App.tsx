@@ -56,13 +56,10 @@ function App() {
   async function GetNotes() {
 
     try {
-      let response = await APIMethods.getData("/notes");
-      if (response.data) {
+      let response = await APIMethods.getData("/app/notes");
+      if (response.data.length) {
         setNotes(response.data);
         setFlag(false);
-      } else {
-        console.log("No saved notes found");
-        // return [];
       }
     } catch (error) {
       console.error("Some error occured: ", error);

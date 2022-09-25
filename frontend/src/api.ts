@@ -1,26 +1,26 @@
 import * as axios from 'axios';
-const baseUrl = "http://localhost:7000";
+// const  = "http://localhost:5000";
 
 const getData = async (path: string) => {
-    let response = await axios.default.get(baseUrl + path);
+    let response = await axios.default.get(path);
     return response;
 }
 
 const postData = async (path: string, payload: any) => {
-    let response = await axios.default.post(baseUrl + path, payload);
+    let response = await axios.default.post(path, payload);
     return response;
 }
 const putData = async (path: string, payload: any) => {
-    let response = await axios.default.put(baseUrl + path, payload);
+    let response = await axios.default.put(path, payload);
     return response;
 }
 const deletetData = async (path: string) => {
-    let response = await axios.default.delete(baseUrl + path);
+    let response = await axios.default.delete(path);
     return response;
 }
 
 const patchtData = async (path: string, payload: any) => {
-    let response = await axios.default.patch(baseUrl + path, payload);
+    let response = await axios.default.patch(path, payload);
     return response;
 }
 

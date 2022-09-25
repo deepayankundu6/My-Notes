@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { INotes } from './interfaces';
 import * as APIMethods from './api';
-import { v4 } from 'uuid'
+import { v4 } from 'uuid';
 
 function EditDialogue() {
     const navigate = useNavigate();
@@ -78,12 +78,17 @@ function EditDialogue() {
                 DueDate: dueDate.toString(),
                 SavedDate: new Date().toString()
             }
-            APIMethods.patchtData('/notes/' + id, payload).then((data) => {
-                console.log("Data updated succesfully");
-                toast.success('Note notes successfully', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-                ResetForm();
+            APIMethods.patchtData('/app/note/update/' + id, payload).then(({ data }) => {
+                if (data.acknowledged) {
+                    toast.success('Note notes successfully', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    ResetForm();
+                } else {
+                    toast.error('Some error occured!!!', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
                 // navigate("/");
             }).catch(err => {
                 console.log("Some error occured while saving the notes: ", err);
@@ -109,11 +114,22 @@ function EditDialogue() {
 
     function getNotesDetails() {
 
-        APIMethods.getData(`/notes/${id}`).then(({ data }) => {
-            setTitle(data.Title);
-            setDescription(data.Description);
-            setDueDate(new Date(data.DueDate));
-            setTags(data.Tags.join(";"));
+        APIMethods.getData(`/app/note/${id}`).then(({ data }) => {
+            if (data) {
+                setTitle(data.Title);
+                setDescription(data.Description);
+                setDueDate(new Date(data.DueDate));
+                setTags(data.Tags.join(";"));
+            } else {
+                toast.error('Some error occured!!!', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }
+        }).catch(err => {
+            console.log("Some error occured while saving the notes: ", err);
+            toast.error('Some error occured!!!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
         })
     }
 }

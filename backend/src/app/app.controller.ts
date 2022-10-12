@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 import { INotes } from 'src/interfaces';
 import { MongoDbService } from 'src/mongo-db/mongo-db.service';
@@ -29,15 +29,17 @@ export class AppController {
         return result;
     }
     @Get("/note/:id")
-    async getNote(@Param() id: string) {
-        let Notes: INotes[] | [] | {};
+    async getNote(@Req() req: any) {
+        let Notes: INotes[] | any;
+        let title = decodeURIComponent(req.params.id);
         try {
-            Notes = await this.mongoDb.findOneDocument(new ObjectId(id));
+            Notes = await this.mongoDb.findAllDocuments();
         } catch (err) {
             console.log("Some error occured!!!: ", err);
             Notes = [];
         };
-        return Notes[0];
+        Notes = Notes.filter(el => el.Title.includes(title));
+        return Notes;
     }
     @Delete("/note/delete/:id")
     async deleteNote(@Param() id: string) {

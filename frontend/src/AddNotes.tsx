@@ -80,7 +80,7 @@ function AddDialogue() {
                     });
                     ResetForm();
                 } else {
-                    toast.error('dSome error occured!!!', {
+                    toast.error('Some error occured!!!', {
                         position: toast.POSITION.TOP_RIGHT
                     });
                 }

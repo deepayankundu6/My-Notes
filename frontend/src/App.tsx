@@ -47,9 +47,15 @@ function App() {
   );
 
 
-  function searchNote(key: string) {
-    console.log("Search Key: ", key);
-    let result = Notes.filter(ell => ell.Title.includes(key) || ell.Description.includes(key) || ell.Tags.includes(key));
+  async function searchNote(key: string[]) {
+    let result;
+    let searchKey = key.pop();
+    if (searchKey) {
+      result = await (await APIMethods.getData(`/app/note/${searchKey}`)).data;
+    }
+    else {
+      result = await (await APIMethods.getData("/app/notes")).data;
+    }
     setNotes(result);
   }
 

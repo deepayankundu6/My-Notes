@@ -1,4 +1,4 @@
-const debouncedFunction = (func: any, delay = 1000) => {
+const debouncedFunction = (func: any, delay = 250) => {
     let timeout: any;
     return function (...args: any) {
         clearTimeout(timeout);

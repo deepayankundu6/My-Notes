@@ -56,7 +56,7 @@ function EditDialogue() {
                         </Grid2>
                         <Grid2 xs={2}>
                             <Button variant="contained" color="success" onClick={(e) => { completeNote() }}>
-                                Completed
+                                Complete
                             </Button>
                         </Grid2>
                     </form>

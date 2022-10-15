@@ -49,16 +49,13 @@ function EditDialogue() {
                         <TextField multiline style={descriptionStyle} id="Notes-Description" label="Description" variant="standard" onChange={(e: any) => setDescription(e.target.value)} value={description} /><br />
                         <TextField style={descriptionStyle} placeholder="Add tags separated by ;" id="Notes-Tags" variant="standard" label="Tags" onChange={(e: any) => setTags(e.target.value)} value={tags} /> <br /> <br /> <br />
 
-                        <Grid2 xs={10}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={dueDate} onChange={(e: any) => { setDueDate(e.$d.toString()) }} />
-                            </LocalizationProvider>
-                        </Grid2>
-                        <Grid2 xs={2}>
-                            <Button variant="contained" color="success" onClick={(e) => { completeNote() }}>
-                                Complete
-                            </Button>
-                        </Grid2>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                            <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={dueDate} onChange={(e: any) => { setDueDate(e.$d.toString()) }} />
+                        </LocalizationProvider>
+
+                        <Button style={doneButton} variant="contained" color="success" onClick={(e) => { completeNote() }}>
+                            Complete
+                        </Button>
                     </form>
                 </Grid2>
 
@@ -207,6 +204,11 @@ const DoneStyle = {
     marginTop: "15%",
     fontSize: "40px",
     cursor: "pointer"
+}
+
+const doneButton = {
+    marginTop: "1.5%",
+    marginLeft: "4%"
 }
 
 export default EditDialogue;

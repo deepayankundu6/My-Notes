@@ -10,7 +10,7 @@ function Landing() {
             <Routes>
                 <Route path="/" element={<App />}> </Route>
                 <Route path="/add" element={<AddNotes />}> </Route>
-                <Route path="/edit/:id" element={<EditDialogue />}> </Route>
+                <Route path="/:id" element={<EditDialogue />}> </Route>
             </Routes>
         </BrowserRouter>
     );

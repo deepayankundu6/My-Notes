@@ -4,7 +4,8 @@ interface INotes {
     Tags: string[]
     DueDate: string
     SavedDate: string,
-    _id?: string
+    _id?: string,
+    done: boolean
 }
 
 export { INotes }

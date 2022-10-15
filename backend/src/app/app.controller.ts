@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, Res } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 import { INotes } from 'src/interfaces';
 import { MongoDbService } from 'src/mongo-db/mongo-db.service';
@@ -28,8 +28,22 @@ export class AppController {
         }
         return result;
     }
+
+    @Get("/note/details/:id")
+    async getNoteDetails(@Req() req: any) {
+        let Notes: INotes[] | any;
+        let title = decodeURIComponent(req.params.id);
+        try {
+            Notes = await this.mongoDb.findOneDocument({ _id: new ObjectId(title) });
+        } catch (err) {
+            console.log("Some error occured!!!: ", err);
+            Notes = [];
+        };
+        return Notes[0];
+    }
+
     @Get("/note/:id")
-    async getNote(@Req() req: any) {
+    async getNoteFilter(@Req() req: any) {
         let Notes: INotes[] | any;
         let title = decodeURIComponent(req.params.id);
         try {
@@ -55,6 +69,18 @@ export class AppController {
 
     @Patch("/note/update/:id")
     async updateNote(@Param() id: string, @Body() body: INotes) {
+        let Notes: INotes | [] | {};
+        try {
+            Notes = await this.mongoDb.updateOneDocument({ _id: new ObjectId(id) }, body);
+        } catch (err) {
+            console.log("Some error occured!!!: ", err);
+            Notes = {};
+        };
+        return Notes;
+    }
+
+    @Patch("/note/done/:id")
+    async doneNote(@Param() id: string, @Body() body: INotes) {
         let Notes: INotes | [] | {};
         try {
             Notes = await this.mongoDb.updateOneDocument({ _id: new ObjectId(id) }, body);

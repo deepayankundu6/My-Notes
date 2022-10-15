@@ -1,5 +1,4 @@
 import * as axios from 'axios';
-// const  = "http://localhost:5000";
 
 const getData = async (path: string) => {
     let response = await axios.default.get(path);

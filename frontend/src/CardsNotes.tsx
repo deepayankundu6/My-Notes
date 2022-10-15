@@ -17,7 +17,7 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
                 <CardContent >
                     <Typography variant="h5" component="span">
                         <Grid2 container spacing={1}>
-                            <Grid2 xs={11} onClick={() => navigate('edit/' + note._id)} style={titleStyle}>
+                            <Grid2 xs={11} onClick={() => navigate('/' + note._id)} style={titleStyle}>
                                 {note.Title}
                             </Grid2>
 

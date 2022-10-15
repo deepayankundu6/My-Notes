@@ -11,7 +11,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { INotes } from './interfaces';
 import * as APIMethods from './api';
-import { v4 } from 'uuid';
 
 function EditDialogue() {
     const navigate = useNavigate();
@@ -76,7 +75,8 @@ function EditDialogue() {
                 Description: description,
                 Tags: getTags(tags),
                 DueDate: dueDate.toString(),
-                SavedDate: new Date().toString()
+                SavedDate: new Date().toString(),
+                done: false
             }
             APIMethods.patchtData('/app/note/update/' + id, payload).then(({ data }) => {
                 if (data.acknowledged) {
@@ -114,7 +114,9 @@ function EditDialogue() {
 
     function getNotesDetails() {
 
-        APIMethods.getData(`/app/note/${id}`).then(({ data }) => {
+        APIMethods.getData("app/note/details/" + id).then(({ data, status }) => {
+            console.log(data)
+            console.log(data.Tags.join(";"))
             if (data) {
                 setTitle(data.Title);
                 setDescription(data.Description);
@@ -126,7 +128,7 @@ function EditDialogue() {
                 });
             }
         }).catch(err => {
-            console.log("Some error occured while saving the notes: ", err);
+            console.log("Some error occured while getting the notes: ", err);
             toast.error('Some error occured!!!', {
                 position: toast.POSITION.TOP_RIGHT
             });

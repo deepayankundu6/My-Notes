@@ -3,7 +3,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import DoneIcon from '@mui/icons-material/Done';
 import { useNavigate, useParams } from "react-router-dom";
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -48,9 +48,17 @@ function EditDialogue() {
                         <TextField style={descriptionStyle} id="Notes-Title" label="Title" variant="standard" onChange={(e: any) => setTitle(e.target.value)} value={title} /><br />
                         <TextField multiline style={descriptionStyle} id="Notes-Description" label="Description" variant="standard" onChange={(e: any) => setDescription(e.target.value)} value={description} /><br />
                         <TextField style={descriptionStyle} placeholder="Add tags separated by ;" id="Notes-Tags" variant="standard" label="Tags" onChange={(e: any) => setTags(e.target.value)} value={tags} /> <br /> <br /> <br />
-                        <LocalizationProvider dateAdapter={AdapterDayjs} >
-                            <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={dueDate} onChange={(e: any) => { setDueDate(e.$d.toString()) }} />
-                        </LocalizationProvider>
+
+                        <Grid2 xs={10}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <DateTimePicker renderInput={(props) => <TextField style={datePickerStyle} {...props} />} label="Due Date" value={dueDate} onChange={(e: any) => { setDueDate(e.$d.toString()) }} />
+                            </LocalizationProvider>
+                        </Grid2>
+                        <Grid2 xs={2}>
+                            <Button variant="contained" color="success" onClick={(e) => { completeNote() }}>
+                                Completed
+                            </Button>
+                        </Grid2>
                     </form>
                 </Grid2>
 
@@ -78,7 +86,7 @@ function EditDialogue() {
                 SavedDate: new Date().toString(),
                 done: false
             }
-            APIMethods.patchtData('/app/note/update/' + id, payload).then(({ data }) => {
+            APIMethods.patchData('/app/note/update/' + id, payload).then(({ data }) => {
                 if (data.acknowledged) {
                     toast.success('Note notes successfully', {
                         position: toast.POSITION.TOP_RIGHT
@@ -115,8 +123,7 @@ function EditDialogue() {
     function getNotesDetails() {
 
         APIMethods.getData("app/note/details/" + id).then(({ data, status }) => {
-            console.log(data)
-            console.log(data.Tags.join(";"))
+
             if (data) {
                 setTitle(data.Title);
                 setDescription(data.Description);
@@ -134,12 +141,35 @@ function EditDialogue() {
             });
         })
     }
-}
 
-function getTags(data: string) {
-    let tags = data.split(";");
-    tags = tags.filter((el: string) => el)
-    return tags;
+
+    function completeNote() {
+
+        APIMethods.patchData("app/note/done/" + id, null).then(({ data }) => {
+
+            if (data) {
+                toast.success('Task marked as completed', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+
+            } else {
+                toast.error('Some error occured!!!', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }
+        }).catch(err => {
+            console.log("Some error occured while getting the notes: ", err);
+            toast.error('Some error occured!!!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        })
+    }
+
+    function getTags(data: string) {
+        let tags = data.split(";");
+        tags = tags.filter((el: string) => el)
+        return tags;
+    }
 }
 
 const notesStyle = {

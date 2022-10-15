@@ -32,9 +32,9 @@ export class AppController {
     @Get("/note/details/:id")
     async getNoteDetails(@Req() req: any) {
         let Notes: INotes[] | any;
-        let title = decodeURIComponent(req.params.id);
+        let id = decodeURIComponent(req.params.id);
         try {
-            Notes = await this.mongoDb.findOneDocument({ _id: new ObjectId(title) });
+            Notes = await this.mongoDb.findOneDocument({ _id: new ObjectId(id) });
         } catch (err) {
             console.log("Some error occured!!!: ", err);
             Notes = [];
@@ -80,10 +80,12 @@ export class AppController {
     }
 
     @Patch("/note/done/:id")
-    async doneNote(@Param() id: string, @Body() body: INotes) {
+    async doneNote(@Param() id: string) {
         let Notes: INotes | [] | {};
         try {
-            Notes = await this.mongoDb.updateOneDocument({ _id: new ObjectId(id) }, body);
+            Notes = await this.mongoDb.findOneDocument({ _id: new ObjectId(id) });
+            Notes[0].done = true;
+            Notes = await this.mongoDb.updateOneDocument({ _id: new ObjectId(id) }, Notes[0]);
         } catch (err) {
             console.log("Some error occured!!!: ", err);
             Notes = {};

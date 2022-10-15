@@ -36,7 +36,7 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
                         })}</>
                     </Typography>
                     <Typography variant="body2" component={'span'}>
-                        <br />   <b >Due Date:</b> <span className={new Date(note.DueDate) > new Date() ? "duedate" : "overduedate"}> {new Date(note.DueDate).toDateString() + ' ' + new Date(note.DueDate).toLocaleTimeString()}</span>
+                        <br />   <b >Due Date:</b> <span className={getDueClass(note)}> {new Date(note.DueDate).toDateString() + ' ' + new Date(note.DueDate).toLocaleTimeString()}</span>
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -48,9 +48,23 @@ function CardsNotes(props: { notes: INotes[] | [], refresh?: any }) {
         }
     </div >
 
+    function getDueClass(note: INotes): string {
+        const CurrentDate = new Date();
+        if (note.done) {
+            return "donedate";
+        } else {
+            if (new Date(note.DueDate) > CurrentDate) {
+                return "duedate"
+            } else {
+                return "overduedate"
+            }
+        }
+    }
+
+
     async function deleteNote(item: INotes) {
         try {
-            let response = await Axios.deletetData(`/app/note/delete/${item._id}`);
+            let response = await Axios.deleteData(`/app/note/delete/${item._id}`);
             props.refresh();
         } catch (err) {
             console.error(`Some error occured while deleting ${item._id}, error: `, err);

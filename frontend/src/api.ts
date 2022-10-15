@@ -15,14 +15,14 @@ const putData = async (path: string, payload: any) => {
     return response;
 }
 
-const deletetData = async (path: string) => {
+const deleteData = async (path: string) => {
     let response = await axios.default.delete(path);
     return response;
 }
 
-const patchtData = async (path: string, payload: any) => {
+const patchData = async (path: string, payload: any) => {
     let response = await axios.default.patch(path, payload);
     return response;
 }
 
-export { getData, deletetData, postData, patchtData, putData }
+export { getData, deleteData, postData, patchData, putData }

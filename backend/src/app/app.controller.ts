@@ -52,7 +52,7 @@ export class AppController {
             console.log("Some error occured!!!: ", err);
             Notes = [];
         };
-        Notes = Notes.filter(el => el.Title.includes(title));
+        Notes = Notes.filter(el => el.Title.toLowerCase().includes(title.toLowerCase()));
         return Notes;
     }
     @Delete("/note/delete/:id")

@@ -63,10 +63,10 @@ function App() {
 
     try {
       let response = await APIMethods.getData("/app/notes");
-      if (response.data.length) {
+      // if (response.data.length) {
         setNotes(response.data);
         setFlag(false);
-      }
+      // }
     } catch (error) {
       console.error("Some error occured: ", error);
       toast.error('Some error occured while fetching the saved notes!!!!!', {
